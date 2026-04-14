@@ -52,7 +52,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/screen',
+      redirect: '/cockpit',
     },
     ...redirect, // 统一的重定向配置
     ...login,
