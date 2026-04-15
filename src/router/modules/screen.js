@@ -1,5 +1,6 @@
 const screen = () => import('@/views/screen/index.vue')
 const cockpit = () => import('@/views/cockpit/index.vue')
+const topic = () => import('@/views/screen/topic.vue')
 const screenPlaceholder = () => import('@/views/screen/placeholder.vue')
 
 export default [
@@ -16,8 +17,7 @@ export default [
   {
     path: '/screen/topic',
     name: 'screen-topic',
-    component: screenPlaceholder,
-    props: { title: '聚焦题材' },
+    component: topic,
   },
   {
     path: '/screen/gold',

@@ -1,10 +1,10 @@
 <template>
-  <div class="cockpit-page">
-    <div class="cockpit-bg-grid"></div>
-    <div class="cockpit-shell" ref="screenRef">
+  <div class="topic-page">
+    <div class="topic-grid"></div>
+    <div class="topic-shell" ref="screenRef">
       <Top theme="dark" title="司南系统 · 管理驾驶舱" />
 
-      <div class="lanhu-base"></div>
+      <div class="topic-bg"></div>
       <section class="core-layout fade-in-up">
         <aside class="side left">
           <article class="panel panel-market">
@@ -65,6 +65,8 @@
               <span class="w-s">阿里巴巴</span>
               <span class="w-s">快手</span>
               <span class="w-s">紫光集团</span>
+              <span class="w-s">阳光城</span>
+              <span class="w-s">格力电器</span>
             </div>
           </article>
 
@@ -72,12 +74,12 @@
             <header class="panel-header"><span>公司荣誉</span><i class="header-dot"></i></header>
             <ul class="honor-list">
               <li>
-                <span class="medal">◆</span>
-                <span class="title">2022最佳信息创新ETF指数基金经理</span>
+                <span class="medal">🏅</span>
+                <span class="title">2022最佳信息创新ETF指数基金经理-刘伟琳</span>
                 <span class="year">2022年</span>
               </li>
               <li>
-                <span class="medal">◆</span>
+                <span class="medal">🏅</span>
                 <span class="title">第二届中国公募基金英华奖-2019年度最佳创新基金产品</span>
                 <span class="year">2019年</span>
               </li>
@@ -87,6 +89,7 @@
 
         <main class="center">
           <div class="center-stage">
+            <div class="center-stage-bg"></div>
             <div class="radar-ring ring-a"></div>
             <div class="radar-ring ring-b"></div>
 
@@ -140,16 +143,28 @@
 
           <article class="panel panel-products">
             <header class="panel-header"><span>募集中产品 2只</span><i class="header-dot"></i></header>
-            <div class="product-list">
+            <div class="product-grid">
               <div class="product-item">
                 <h4>工银行业优选混合A（张经理）</h4>
-                <p>募集期：05/25-06/30</p>
-                <p>进度：2.00亿元</p>
+                <div class="meta-row">
+                  <span><img src="./topic-images/icon-period.png" alt="" />募集期</span>
+                  <span><img src="./topic-images/icon-progress.png" alt="" />进度</span>
+                </div>
+                <div class="meta-row strong">
+                  <b>05/25-06/30</b>
+                  <b>2.00亿元</b>
+                </div>
               </div>
               <div class="product-item">
                 <h4>工银行业优选混合B（张经理）</h4>
-                <p>募集期：05/25-06/30</p>
-                <p>进度：34.00亿元</p>
+                <div class="meta-row">
+                  <span><img src="./topic-images/icon-period.png" alt="" />募集期</span>
+                  <span><img src="./topic-images/icon-progress.png" alt="" />进度</span>
+                </div>
+                <div class="meta-row strong">
+                  <b>05/25-06/30</b>
+                  <b>34.00亿元</b>
+                </div>
               </div>
             </div>
           </article>
@@ -175,16 +190,30 @@
       <section class="bottom-layout fade-in-up delay-1">
         <article class="panel chart-panel">
           <header class="panel-header"><span>选择</span><i class="header-dot"></i></header>
+          <div class="panel-kpis">
+            <p><span>母公司规模</span><b>15,200亿</b><em class="risk">较年初 +160亿（+10.4%）</em></p>
+            <p><span>子公司规模</span><b>1545亿</b><em class="risk">较年初 +10亿（+0.8%）</em></p>
+          </div>
           <div ref="sunburstRef" class="chart"></div>
         </article>
 
         <article class="panel chart-panel">
           <header class="panel-header"><span>公募基金</span><i class="header-dot"></i></header>
+          <div class="panel-kpis">
+            <p><span>保有规模</span><b>8,200亿</b><em class="risk">较年初 +100亿（+7.4%）</em></p>
+            <p><span>产品数量</span><b>216亿</b><em class="risk">较年初 +10亿（+10%）</em></p>
+          </div>
           <div ref="mixRef" class="chart"></div>
         </article>
 
         <article class="panel chart-panel">
           <header class="panel-header"><span>归因分析（当年）</span><i class="header-dot"></i></header>
+          <div class="panel-kpis two-col">
+            <p><span>规模变动</span><b>+170亿（+2.3%）</b></p>
+            <p><span>持营</span><b>401亿</b></p>
+            <p><span>新发</span><b>288亿</b></p>
+            <p><span>分红</span><b>63亿</b></p>
+          </div>
           <div ref="barRef" class="chart"></div>
         </article>
 
@@ -192,13 +221,23 @@
           <header class="panel-header"><span>销售（当年）</span><i class="header-dot"></i></header>
           <div class="sales-box">
             <div class="sales-top">
-              <div><strong class="risk">16,349</strong><span>销售（亿）</span></div>
-              <div class="arrow">→</div>
-              <div><strong class="good">15,600</strong><span>赎回（亿）</span></div>
+              <div class="sale-block">
+                <strong class="risk">16,349</strong>
+                <span>销售（亿）</span>
+              </div>
+              <div class="sale-mid">1月1日 至 4月7日</div>
+              <div class="sale-block">
+                <strong class="good">15,600</strong>
+                <span>赎回（亿）</span>
+              </div>
             </div>
-            <p class="sales-sub">1月1日 至 4月7日</p>
+            <div class="sale-arrow-wrap">
+              <img src="./topic-images/sales-base-side.png" alt="" />
+              <img class="arrow-icon" src="./topic-images/arrow-inflow.png" alt="" />
+              <img class="flip" src="./topic-images/sales-base-side.png" alt="" />
+            </div>
             <div class="target-wrap">
-              <div class="target-bar"><div class="target-progress">1000亿（50.0%）</div></div>
+              <div class="target-bar"><div class="target-progress">规模增量 1000亿（50.0%）</div></div>
               <p>年度目标2000亿</p>
             </div>
           </div>
@@ -206,6 +245,12 @@
 
         <article class="panel chart-panel">
           <header class="panel-header"><span>客户分布</span><i class="header-dot"></i></header>
+          <div class="panel-kpis two-col">
+            <p><span>机构客户</span><b>1万户</b><em class="risk">较年初 +100户</em></p>
+            <p><span>个人客户</span><b>1万户</b><em class="risk">较年初 +100户</em></p>
+            <p><span>持仓客户</span><b>0.8万户</b><em class="risk">较年初 +40户</em></p>
+            <p><span>持仓客户</span><b>0.8万户</b><em class="risk">较年初 +40户</em></p>
+          </div>
           <div ref="lineRef" class="chart"></div>
         </article>
       </section>
@@ -216,14 +261,13 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import * as echarts from 'echarts'
-import Top from '@/views/screen/components/top/index.vue'
+import Top from './components/top/index.vue'
 
 const screenRef = ref(null)
 const sunburstRef = ref(null)
 const mixRef = ref(null)
 const barRef = ref(null)
 const lineRef = ref(null)
-
 const chartInstances = []
 let orbitTimer = null
 const activeBubble = ref(0)
@@ -235,8 +279,8 @@ const coreMetric = {
 
 const orbitMetrics = [
   { key: 'public', value: '8,241.21', label: '公募基金规模（亿元）' },
-  { key: 'nav', value: '7,345.12', label: '净值金额规模（亿元）' },
-  { key: 'client', value: '1,001.23', label: '客户数（万户）' },
+  { key: 'nav', value: '7,345.12', label: '养老金规模（亿元）' },
+  { key: 'client', value: '1,001.23', label: '客户（万户）' },
   { key: 'product', value: '928', label: '产品数量（只）' },
   { key: 'manager', value: '56', label: '基金经理（名）' },
   { key: 'account', value: '2.21', label: '账户数（万）' },
@@ -261,7 +305,6 @@ function mountChart(el, option) {
 }
 
 function buildCharts() {
-  // TODO: 后续在这里切换为后端查询接口数据
   mountChart(sunburstRef.value, {
     series: [
       {
@@ -269,43 +312,38 @@ function buildCharts() {
         radius: [0, '92%'],
         sort: null,
         emphasis: { focus: 'ancestor' },
-        label: { rotate: 'radial', color: '#bde7ff', fontSize: 11 },
+        label: { rotate: 'radial', color: '#c5e8ff', fontSize: 11 },
         itemStyle: { borderColor: '#042046', borderWidth: 2, borderRadius: 6 },
-        levels: [
-          {},
-          { r0: '10%', r: '36%', label: { rotate: 0 } },
-          { r0: '36%', r: '64%' },
-          { r0: '64%', r: '92%' },
-        ],
+        levels: [{}, { r0: '12%', r: '36%' }, { r0: '36%', r: '66%' }, { r0: '66%', r: '92%' }],
         data: [
           {
-            name: '权益类',
-            value: 42,
-            itemStyle: { color: '#4fa9ff' },
+            name: '权益',
+            value: 40,
+            itemStyle: { color: '#4d9fff' },
             children: [
-              { name: '主动权益', value: 20, itemStyle: { color: '#5dc1ff' } },
-              { name: '指数增强', value: 12, itemStyle: { color: '#6dd4ff' } },
-              { name: '行业主题', value: 10, itemStyle: { color: '#8be5ff' } },
+              { name: '主动权益', value: 15, itemStyle: { color: '#63b4ff' } },
+              { name: '指数增强', value: 14, itemStyle: { color: '#79c5ff' } },
+              { name: '行业主题', value: 11, itemStyle: { color: '#8bd7ff' } },
             ],
           },
           {
-            name: '固定收益',
-            value: 32,
-            itemStyle: { color: '#4d89ff' },
+            name: '固收',
+            value: 35,
+            itemStyle: { color: '#3f7dff' },
             children: [
-              { name: '纯债', value: 15, itemStyle: { color: '#58a0ff' } },
-              { name: '偏债混合', value: 10, itemStyle: { color: '#69b2ff' } },
-              { name: '可转债', value: 7, itemStyle: { color: '#7fc5ff' } },
+              { name: '纯债', value: 14, itemStyle: { color: '#5796ff' } },
+              { name: '偏债混合', value: 11, itemStyle: { color: '#6daeff' } },
+              { name: '可转债', value: 10, itemStyle: { color: '#83c5ff' } },
             ],
           },
           {
-            name: '货币类',
-            value: 26,
-            itemStyle: { color: '#3974ff' },
+            name: '货币',
+            value: 25,
+            itemStyle: { color: '#2e60df' },
             children: [
-              { name: '现金管理', value: 11, itemStyle: { color: '#4389ff' } },
-              { name: '短债增强', value: 9, itemStyle: { color: '#4d9dff' } },
-              { name: '同业存单', value: 6, itemStyle: { color: '#62b5ff' } },
+              { name: '现金管理', value: 10, itemStyle: { color: '#3f73ef' } },
+              { name: '短债增强', value: 8, itemStyle: { color: '#5288ff' } },
+              { name: '同业存单', value: 7, itemStyle: { color: '#66a2ff' } },
             ],
           },
         ],
@@ -316,39 +354,65 @@ function buildCharts() {
   mountChart(mixRef.value, {
     tooltip: { trigger: 'axis' },
     legend: { data: ['保有规模', '产品数量'], textStyle: { color: '#95d2ff' } },
-    grid: { top: 38, left: 36, right: 20, bottom: 30 },
-    xAxis: { type: 'category', data: ['3/17', '3/24', '3/31', '4/7'], axisLabel: { color: '#83c4ff' } },
+    grid: { top: 38, left: 36, right: 20, bottom: 24 },
+    xAxis: { type: 'category', data: ['04-30', '05-31', '06-30', '07-31'], axisLabel: { color: '#83c4ff' } },
     yAxis: [
       { type: 'value', axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.22)' } } },
       { type: 'value', axisLabel: { color: '#83c4ff' }, splitLine: { show: false } },
     ],
     series: [
-      { type: 'bar', name: '保有规模', data: [7800, 7750, 7900, 8200], itemStyle: { color: '#57c6ff' } },
-      { type: 'line', name: '产品数量', yAxisIndex: 1, data: [210, 212, 215, 230], smooth: true, itemStyle: { color: '#ffd668' } },
+      { type: 'bar', name: '保有规模', data: [7800, 7750, 7900, 8200], itemStyle: { color: '#65c8ff' } },
+      { type: 'line', name: '产品数量', yAxisIndex: 1, data: [210, 212, 215, 230], smooth: true, itemStyle: { color: '#ffcf63' } },
     ],
   })
 
   mountChart(barRef.value, {
     tooltip: { trigger: 'axis' },
-    grid: { top: 26, left: 34, right: 16, bottom: 28 },
+    grid: { top: 22, left: 34, right: 16, bottom: 22 },
     xAxis: { type: 'category', data: ['新发', '持营', '利润', '分红'], axisLabel: { color: '#83c4ff' } },
     yAxis: { type: 'value', axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.2)' } } },
-    series: [{ type: 'bar', data: [220, 380, -202, 63], itemStyle: { color: params => (params.value >= 0 ? '#63d8ff' : '#ffaf5a') } }],
+    series: [
+      {
+        type: 'bar',
+        barWidth: 18,
+        data: [220, 380, -202, 63],
+        itemStyle: {
+          color: params => (params.value >= 0 ? '#78d4ff' : '#ffb35a'),
+          borderRadius: [6, 6, 0, 0],
+        },
+      },
+    ],
   })
 
   mountChart(lineRef.value, {
-    tooltip: { trigger: 'axis' },
-    legend: { data: ['年初客户分布', '当前客户分布'], textStyle: { color: '#95d2ff' } },
-    grid: { top: 42, left: 46, right: 22, bottom: 26 },
-    xAxis: { type: 'value', axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.2)' } } },
-    yAxis: {
-      type: 'category',
-      data: ['1000万以上', '500-1000万', '200-500万', '100-200万', '50-100万', '1-50万'],
-      axisLabel: { color: '#83c4ff' },
-    },
+    legend: { top: 0, textStyle: { color: '#9fd0ff', fontSize: 12 } },
+    grid: [
+      { left: '6%', right: '54%', top: 32, bottom: 22 },
+      { left: '56%', right: '6%', top: 32, bottom: 22 },
+    ],
+    xAxis: [
+      { type: 'value', gridIndex: 0, axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.2)' } } },
+      { type: 'value', gridIndex: 1, axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.2)' } } },
+    ],
+    yAxis: [
+      {
+        type: 'category',
+        gridIndex: 0,
+        data: ['1000万以上', '500-1000万', '200-500万', '100-200万', '50-100万', '1-50万'],
+        axisLabel: { color: '#83c4ff' },
+      },
+      {
+        type: 'category',
+        gridIndex: 1,
+        data: ['100万以上', '50-100万', '10-50万', '5-10万', '1-5万', '0.5万以下'],
+        axisLabel: { color: '#83c4ff' },
+      },
+    ],
     series: [
-      { type: 'line', smooth: true, name: '年初客户分布', data: [8, 12, 17, 20, 24, 28], lineStyle: { color: '#67d9ff' } },
-      { type: 'line', smooth: true, name: '当前客户分布', data: [10, 14, 20, 22, 27, 30], lineStyle: { color: '#ffd668' } },
+      { name: '年初客户分布', type: 'line', xAxisIndex: 0, yAxisIndex: 0, smooth: true, data: [8, 12, 17, 20, 24, 28], lineStyle: { color: '#67d9ff' }, symbolSize: 6 },
+      { name: '当前客户分布', type: 'line', xAxisIndex: 0, yAxisIndex: 0, smooth: true, data: [10, 14, 20, 22, 27, 30], lineStyle: { color: '#ffd668' }, symbolSize: 6 },
+      { name: '年初客户数分布', type: 'line', xAxisIndex: 1, yAxisIndex: 1, smooth: true, data: [6, 10, 14, 17, 21, 24], lineStyle: { color: '#67d9ff' }, symbolSize: 6, showSymbol: true },
+      { name: '当前客户数分布', type: 'line', xAxisIndex: 1, yAxisIndex: 1, smooth: true, data: [8, 12, 16, 20, 23, 27], lineStyle: { color: '#ffd668' }, symbolSize: 6, showSymbol: true },
     ],
   })
 }
@@ -375,27 +439,23 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.cockpit-page {
+.topic-page {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 24%, rgba(50, 138, 255, 0.2), transparent 36%),
-    linear-gradient(180deg, #06142c 0%, #081a3a 50%, #061531 100%);
+  background: radial-gradient(circle at 50% 24%, rgba(50, 138, 255, 0.22), transparent 36%), linear-gradient(180deg, #06142c 0%, #081a3a 50%, #061531 100%);
 }
 
-.cockpit-bg-grid {
+.topic-grid {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(85, 162, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(85, 162, 255, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(85, 162, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(85, 162, 255, 0.05) 1px, transparent 1px);
   background-size: 34px 34px;
-  opacity: 0.22;
+  opacity: 0.2;
   pointer-events: none;
 }
 
-.cockpit-shell {
+.topic-shell {
   width: 1920px;
   height: 1080px;
   position: fixed;
@@ -406,15 +466,15 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-.lanhu-base {
+.topic-bg {
   position: absolute;
   left: 0;
   top: 104px;
   width: 1920px;
   height: 976px;
-  background: url('./images/lanhu-bg-main.png') no-repeat center -104px;
+  background: url('../cockpit/images/lanhu-bg-main.png') no-repeat center -104px;
   background-size: 1920px 1080px;
-  opacity: 0.26;
+  opacity: 0.32;
   pointer-events: none;
 }
 
@@ -439,9 +499,9 @@ onUnmounted(() => {
   content: '';
   position: absolute;
   inset: -1px;
-  background: url('./images/lanhu-side-panel.png') no-repeat center top;
+  background: url('../cockpit/images/lanhu-side-panel.png') no-repeat center top;
   background-size: 486px 604px;
-  opacity: 0.38;
+  opacity: 0.36;
   pointer-events: none;
   z-index: 0;
 }
@@ -455,18 +515,13 @@ onUnmounted(() => {
   border: 1px solid rgba(88, 176, 255, 0.48);
   border-radius: 4px;
   background: linear-gradient(180deg, rgba(10, 43, 114, 0.56), rgba(7, 28, 80, 0.52));
-  box-shadow:
-    inset 0 0 18px rgba(80, 190, 255, 0.14),
-    0 0 16px rgba(35, 122, 243, 0.12);
-  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: inset 0 0 18px rgba(80, 190, 255, 0.14), 0 0 14px rgba(35, 122, 243, 0.12);
   overflow: hidden;
 }
 
 .panel:hover {
   border-color: rgba(96, 217, 255, 0.88);
-  box-shadow:
-    inset 0 0 24px rgba(102, 228, 255, 0.2),
-    0 0 24px rgba(53, 166, 255, 0.28);
+  box-shadow: inset 0 0 24px rgba(102, 228, 255, 0.2), 0 0 24px rgba(53, 166, 255, 0.28);
 }
 
 .panel-header {
@@ -479,17 +534,6 @@ onUnmounted(() => {
   background: linear-gradient(90deg, rgba(16, 74, 170, 0.72), rgba(10, 46, 116, 0.42));
   font-size: 18px;
   color: #ecf8ff;
-  position: relative;
-}
-
-.panel-header::after {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(140, 220, 255, 0), rgba(140, 220, 255, 0.95), rgba(140, 220, 255, 0));
 }
 
 .header-dot {
@@ -583,7 +627,7 @@ onUnmounted(() => {
 
 .honor-list li {
   display: grid;
-  grid-template-columns: 18px 1fr auto;
+  grid-template-columns: 20px 1fr auto;
   gap: 8px;
   align-items: center;
   padding: 10px 8px;
@@ -594,7 +638,7 @@ onUnmounted(() => {
 }
 
 .medal {
-  color: #ffd67a;
+  font-size: 14px;
 }
 
 .year {
@@ -617,9 +661,10 @@ onUnmounted(() => {
   color: #e8f7ff;
 }
 
-.product-list {
+.product-grid {
   padding: 10px;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -630,15 +675,38 @@ onUnmounted(() => {
 }
 
 .product-item h4 {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
   font-size: 14px;
   color: #ddf1ff;
 }
 
-.product-item p {
-  margin: 0;
-  font-size: 13px;
+.meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  font-size: 12px;
   color: #9eceff;
+}
+
+.meta-row span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-row img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.9;
+}
+
+.meta-row.strong {
+  margin-top: 4px;
+}
+
+.meta-row.strong b {
+  color: #dff3ff;
+  font-size: 13px;
 }
 
 .mini-table {
@@ -669,14 +737,18 @@ onUnmounted(() => {
 
 .center-stage {
   position: relative;
-  height: 478px;
-  border: 1px solid rgba(85, 167, 255, 0.32);
+  height: 492px;
+  border: 1px solid rgba(85, 167, 255, 0.35);
   border-radius: 10px;
-  background:
-    url('./images/lanhu-center-decor.png') no-repeat center top / 924px 525px,
-    radial-gradient(circle at center, rgba(54, 147, 255, 0.12), transparent 48%),
-    linear-gradient(180deg, rgba(8, 39, 100, 0.48), rgba(7, 28, 80, 0.36));
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(8, 39, 100, 0.48), rgba(7, 28, 80, 0.36));
+}
+
+.center-stage-bg {
+  position: absolute;
+  inset: 0;
+  background: url('../cockpit/images/lanhu-center-decor.png') no-repeat center top / 924px 525px;
+  opacity: 0.95;
 }
 
 .radar-ring {
@@ -701,15 +773,13 @@ onUnmounted(() => {
 .main-bubble {
   position: absolute;
   left: 50%;
-  top: 55%;
+  top: 54%;
   width: 296px;
   height: 296px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 3px solid rgba(88, 223, 255, 0.9);
-  box-shadow:
-    inset 0 0 34px rgba(90, 221, 255, 0.28),
-    0 0 44px rgba(62, 176, 255, 0.52);
+  box-shadow: inset 0 0 34px rgba(90, 221, 255, 0.28), 0 0 44px rgba(62, 176, 255, 0.52);
   animation: pulseGlow 4.8s ease-in-out infinite;
 }
 
@@ -742,9 +812,7 @@ onUnmounted(() => {
   border-radius: 50%;
   border: 2px solid rgba(88, 208, 255, 0.78);
   background: radial-gradient(circle at 34% 34%, rgba(90, 214, 255, 0.22), rgba(10, 43, 112, 0.8));
-  box-shadow:
-    inset 0 0 20px rgba(92, 222, 255, 0.2),
-    0 0 18px rgba(63, 170, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(92, 222, 255, 0.2), 0 0 18px rgba(63, 170, 255, 0.3);
   display: grid;
   place-content: center;
   text-align: center;
@@ -754,9 +822,7 @@ onUnmounted(() => {
 .orbit-bubble:hover,
 .orbit-bubble.active {
   transform: scale(1.08);
-  box-shadow:
-    inset 0 0 30px rgba(108, 239, 255, 0.28),
-    0 0 28px rgba(86, 203, 255, 0.44);
+  box-shadow: inset 0 0 30px rgba(108, 239, 255, 0.28), 0 0 28px rgba(86, 203, 255, 0.44);
 }
 
 .orbit-bubble strong {
@@ -771,13 +837,13 @@ onUnmounted(() => {
 }
 
 .bubble-1 {
-  left: 66px;
-  top: 188px;
+  left: 74px;
+  top: 196px;
 }
 
 .bubble-2 {
-  left: 194px;
-  top: 54px;
+  left: 196px;
+  top: 56px;
 }
 
 .bubble-3 {
@@ -789,13 +855,13 @@ onUnmounted(() => {
 }
 
 .bubble-4 {
-  right: 194px;
-  top: 54px;
+  right: 196px;
+  top: 56px;
 }
 
 .bubble-5 {
-  right: 66px;
-  top: 188px;
+  right: 74px;
+  top: 196px;
 }
 
 .bubble-6 {
@@ -827,11 +893,11 @@ onUnmounted(() => {
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .growth-card {
-  height: 116px;
+  height: 118px;
   border: 1px solid rgba(92, 175, 255, 0.54);
   border-radius: 18px 18px 24px 24px;
   background: linear-gradient(180deg, rgba(11, 44, 114, 0.8), rgba(8, 28, 82, 0.72));
@@ -870,7 +936,7 @@ onUnmounted(() => {
   grid-template-columns: 1.02fr 0.94fr 0.94fr 0.94fr 1.22fr;
   gap: 8px;
   padding: 0 12px 10px;
-  height: 350px;
+  height: 338px;
 }
 
 .bottom-layout::before {
@@ -880,7 +946,7 @@ onUnmounted(() => {
   right: 12px;
   top: 0;
   height: 340px;
-  background: url('./images/lanhu-bottom-base.png') no-repeat center top;
+  background: url('../cockpit/images/lanhu-bottom-base.png') no-repeat center top;
   background-size: 1896px 360px;
   opacity: 0.22;
   pointer-events: none;
@@ -893,13 +959,43 @@ onUnmounted(() => {
   flex-direction: column;
 }
 
+.panel-kpis {
+  padding: 8px 10px 2px;
+  display: grid;
+  gap: 4px;
+}
+
+.panel-kpis.two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 8px;
+}
+
+.panel-kpis p {
+  margin: 0;
+  font-size: 12px;
+  color: #a8d8ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-kpis b {
+  color: #e7f7ff;
+  font-size: 18px;
+}
+
+.panel-kpis em {
+  font-style: normal;
+  font-size: 12px;
+}
+
 .chart {
   flex: 1;
-  min-height: 240px;
+  min-height: 130px;
 }
 
 .sales-box {
-  padding: 12px 12px 10px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -908,31 +1004,51 @@ onUnmounted(() => {
 
 .sales-top {
   display: grid;
-  grid-template-columns: 1fr 42px 1fr;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 8px;
+}
+
+.sale-block {
   text-align: center;
-  align-items: center;
 }
 
-.sales-top strong {
-  font-size: 34px;
-}
-
-.sales-top span {
+.sale-block strong {
   display: block;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.sale-block span {
   font-size: 16px;
-  color: #c9ecff;
+  color: #cfe9ff;
 }
 
-.arrow {
-  font-size: 32px;
-  color: #68d8ff;
-}
-
-.sales-sub {
-  margin: 0;
-  text-align: center;
-  color: #9fd4ff;
+.sale-mid {
   font-size: 14px;
+  color: #a9d7ff;
+  text-align: center;
+}
+
+.sale-arrow-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.sale-arrow-wrap img {
+  width: 92px;
+  height: 50px;
+}
+
+.sale-arrow-wrap .arrow-icon {
+  width: 21px;
+  height: 16px;
+}
+
+.sale-arrow-wrap .flip {
+  transform: scaleX(-1);
 }
 
 .target-wrap p {
@@ -955,38 +1071,38 @@ onUnmounted(() => {
   line-height: 18px;
   text-align: center;
   font-size: 12px;
-  color: #e7fbff;
-  background: linear-gradient(90deg, #62d8ff, #4383ff);
+  color: #fff2f2;
+  background: linear-gradient(90deg, #ff7f8f, #ff5858);
 }
 
 .left .panel-market {
-  flex: 0 0 178px;
+  flex: 0 0 196px;
 }
 
 .left .panel-sentiment {
-  flex: 0 0 232px;
+  flex: 0 0 252px;
 }
 
 .left .panel-honor {
   flex: 1;
-  min-height: 174px;
+  min-height: 150px;
 }
 
 .right .panel-focus {
-  flex: 0 0 118px;
+  flex: 0 0 126px;
 }
 
 .right .panel-products {
-  flex: 0 0 158px;
+  flex: 0 0 168px;
 }
 
 .right .panel-mini {
-  flex: 0 0 116px;
+  flex: 0 0 120px;
 }
 
 .right .panel-liquidity {
   flex: 1;
-  min-height: 182px;
+  min-height: 166px;
 }
 
 .fade-in-up {
