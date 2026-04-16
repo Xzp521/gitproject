@@ -94,18 +94,20 @@
             <div class="radar-ring ring-b"></div>
 
             <div
-              v-for="(item, index) in orbitMetrics"
-              :key="item.key"
+              v-for="(item, index) in displayedOrbitMetrics"
+              :key="`${centerMetricIndex}-${item.key}`"
               class="orbit-bubble"
-              :class="[`bubble-${index + 1}`, { active: activeBubble === index }]"
+              :class="[item.slot, { active: index === 0 }]"
             >
               <strong>{{ item.value }}</strong>
+              <em v-if="item.valueSub">{{ item.valueSub }}</em>
               <span>{{ item.label }}</span>
             </div>
 
             <div class="main-bubble">
               <div class="main-bubble__inner">
                 <strong>{{ coreMetric.value }}</strong>
+                <em v-if="coreMetric.valueSub" class="main-bubble__sub">{{ coreMetric.valueSub }}</em>
                 <span>{{ coreMetric.label }}</span>
               </div>
             </div>
@@ -259,7 +261,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import * as echarts from 'echarts'
 import Top from './components/top/index.vue'
 
@@ -270,21 +272,27 @@ const barRef = ref(null)
 const lineRef = ref(null)
 const chartInstances = []
 let orbitTimer = null
-const activeBubble = ref(0)
+const centerMetricIndex = ref(0)
 
-const coreMetric = {
-  value: '17,810.23',
-  label: '资产管理总规模（亿元）',
-}
-
-const orbitMetrics = [
+const metricCarousel = [
+  { key: 'total', value: '17,810.23', label: '资产管理总规模（亿元）' },
   { key: 'public', value: '8,241.21', label: '公募基金规模（亿元）' },
   { key: 'nav', value: '7,345.12', label: '养老金规模（亿元）' },
-  { key: 'client', value: '1,001.23', label: '客户（万户）' },
+  { key: 'client_account', value: '客户 1,001.23', valueSub: '账户 2.21（万）', label: '客户/账户' },
   { key: 'product', value: '928', label: '产品数量（只）' },
   { key: 'manager', value: '56', label: '基金经理（名）' },
-  { key: 'account', value: '2.21', label: '账户数（万）' },
 ]
+
+const bubbleSlots = ['bubble-3', 'bubble-4', 'bubble-5', 'bubble-1', 'bubble-2']
+const orbitMetricIndexes = ref(metricCarousel.slice(1).map((_, index) => index + 1))
+
+const coreMetric = computed(() => metricCarousel[centerMetricIndex.value])
+const displayedOrbitMetrics = computed(() => {
+  return bubbleSlots.map((slot, index) => ({
+    ...metricCarousel[orbitMetricIndexes.value[index]],
+    slot,
+  }))
+})
 
 function getScale(w = 1920, h = 1080) {
   const ww = window.innerWidth / w
@@ -352,9 +360,15 @@ function buildCharts() {
   })
 
   mountChart(mixRef.value, {
-    tooltip: { trigger: 'axis' },
-    legend: { data: ['保有规模', '产品数量'], textStyle: { color: '#95d2ff' } },
-    grid: { top: 38, left: 36, right: 20, bottom: 24 },
+    tooltip: {
+      trigger: 'axis',
+      confine: true,
+      backgroundColor: 'rgba(4, 27, 84, 0.95)',
+      borderColor: 'rgba(89, 178, 255, 0.68)',
+      textStyle: { color: '#e8f5ff' },
+    },
+    legend: { bottom: 2, itemWidth: 12, itemHeight: 6, data: ['保有规模', '产品数量'], textStyle: { color: '#95d2ff', fontSize: 11 } },
+    grid: { top: 14, left: 36, right: 20, bottom: 34 },
     xAxis: { type: 'category', data: ['04-30', '05-31', '06-30', '07-31'], axisLabel: { color: '#83c4ff' } },
     yAxis: [
       { type: 'value', axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.22)' } } },
@@ -385,10 +399,18 @@ function buildCharts() {
   })
 
   mountChart(lineRef.value, {
-    legend: { top: 0, textStyle: { color: '#9fd0ff', fontSize: 12 } },
+    tooltip: {
+      trigger: 'item',
+      confine: true,
+      backgroundColor: 'rgba(4, 27, 84, 0.95)',
+      borderColor: 'rgba(89, 178, 255, 0.68)',
+      textStyle: { color: '#e8f5ff' },
+      formatter: params => `${params.seriesName}<br/>${params.name}: ${params.value}`,
+    },
+    legend: { bottom: 0, itemWidth: 12, itemHeight: 6, textStyle: { color: '#9fd0ff', fontSize: 11 } },
     grid: [
-      { left: '6%', right: '54%', top: 32, bottom: 22 },
-      { left: '56%', right: '6%', top: 32, bottom: 22 },
+      { left: '6%', right: '54%', top: 14, bottom: 40 },
+      { left: '56%', right: '6%', top: 14, bottom: 40 },
     ],
     xAxis: [
       { type: 'value', gridIndex: 0, axisLabel: { color: '#83c4ff' }, splitLine: { lineStyle: { color: 'rgba(123,191,255,0.2)' } } },
@@ -426,7 +448,10 @@ onMounted(() => {
   syncScale()
   buildCharts()
   orbitTimer = window.setInterval(() => {
-    activeBubble.value = (activeBubble.value + 1) % orbitMetrics.length
+    const previousCenter = centerMetricIndex.value
+    const currentOrbit = orbitMetricIndexes.value
+    centerMetricIndex.value = currentOrbit[currentOrbit.length - 1]
+    orbitMetricIndexes.value = [previousCenter, ...currentOrbit.slice(0, -1)]
   }, 5000)
   window.addEventListener('resize', resizeAll)
 })
@@ -485,7 +510,7 @@ onUnmounted(() => {
   grid-template-columns: 486px 924px 486px;
   gap: 12px;
   padding: 0 12px;
-  height: 606px;
+  height: 576px;
 }
 
 .side {
@@ -622,7 +647,7 @@ onUnmounted(() => {
 .honor-list {
   list-style: none;
   margin: 0;
-  padding: 10px 12px 14px;
+  padding: 5px 12px 0px;
 }
 
 .honor-list li {
@@ -630,7 +655,7 @@ onUnmounted(() => {
   grid-template-columns: 20px 1fr auto;
   gap: 8px;
   align-items: center;
-  padding: 10px 8px;
+  padding: 8px;
   border: 1px solid rgba(110, 185, 255, 0.3);
   background: rgba(13, 44, 112, 0.52);
   margin-bottom: 8px;
@@ -737,7 +762,7 @@ onUnmounted(() => {
 
 .center-stage {
   position: relative;
-  height: 492px;
+  height: 466px;
   border: 1px solid rgba(85, 167, 255, 0.35);
   border-radius: 10px;
   overflow: hidden;
@@ -805,6 +830,13 @@ onUnmounted(() => {
   max-width: 210px;
 }
 
+.main-bubble__sub {
+  margin-top: 6px;
+  font-style: normal;
+  font-size: 20px;
+  color: #a9ecff;
+}
+
 .orbit-bubble {
   position: absolute;
   width: 140px;
@@ -816,7 +848,13 @@ onUnmounted(() => {
   display: grid;
   place-content: center;
   text-align: center;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    left 0.5s ease,
+    top 0.5s ease,
+    width 0.5s ease,
+    height 0.5s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .orbit-bubble:hover,
@@ -826,12 +864,22 @@ onUnmounted(() => {
 }
 
 .orbit-bubble strong {
-  font-size: 30px;
+  font-size: 24px;
   color: #80e9ff;
   line-height: 1;
 }
 
+.orbit-bubble em {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 12px;
+  color: #91ddff;
+}
+
 .orbit-bubble span {
+  display: block;
+  margin-top: 4px;
   font-size: 11px;
   color: #bde9ff;
 }
@@ -848,9 +896,9 @@ onUnmounted(() => {
 
 .bubble-3 {
   left: 50%;
-  top: 66px;
-  width: 130px;
-  height: 130px;
+  top: 52px;
+  width: 150px;
+  height: 150px;
   transform: translateX(-50%);
 }
 
@@ -864,40 +912,23 @@ onUnmounted(() => {
   top: 196px;
 }
 
-.bubble-6 {
-  left: 50%;
-  top: -6px;
-  width: 102px;
-  height: 102px;
-  transform: translateX(-50%);
-  border-width: 1.5px;
-}
-
 .bubble-3 strong {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .bubble-3 span {
   font-size: 11px;
 }
 
-.bubble-6 strong {
-  font-size: 24px;
-}
-
-.bubble-6 span {
-  font-size: 10px;
-}
-
 .growth-row {
-  margin-top: 10px;
+  margin-top: 6px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .growth-card {
-  height: 118px;
+  height: 98px;
   border: 1px solid rgba(92, 175, 255, 0.54);
   border-radius: 18px 18px 24px 24px;
   background: linear-gradient(180deg, rgba(11, 44, 114, 0.8), rgba(8, 28, 82, 0.72));
@@ -907,17 +938,17 @@ onUnmounted(() => {
 }
 
 .growth-card em {
-  font-size: 17px;
+  font-size: 14px;
   font-style: normal;
 }
 
 .growth-card strong {
-  font-size: 44px;
+  font-size: 34px;
   line-height: 1;
 }
 
 .growth-card span {
-  font-size: 20px;
+  font-size: 17px;
   color: #cdeeff;
 }
 
@@ -931,12 +962,12 @@ onUnmounted(() => {
 
 .bottom-layout {
   position: relative;
-  margin-top: 8px;
+  margin-top: 6px;
   display: grid;
   grid-template-columns: 1.02fr 0.94fr 0.94fr 0.94fr 1.22fr;
   gap: 8px;
-  padding: 0 12px 10px;
-  height: 338px;
+  padding: 0 12px 12px;
+  height: 386px;
 }
 
 .bottom-layout::before {
@@ -945,9 +976,9 @@ onUnmounted(() => {
   left: 12px;
   right: 12px;
   top: 0;
-  height: 340px;
+  height: 376px;
   background: url('../cockpit/images/lanhu-bottom-base.png') no-repeat center top;
-  background-size: 1896px 360px;
+  background-size: 1896px 396px;
   opacity: 0.22;
   pointer-events: none;
 }
@@ -960,6 +991,8 @@ onUnmounted(() => {
 }
 
 .panel-kpis {
+  position: relative;
+  z-index: 2;
   padding: 8px 10px 2px;
   display: grid;
   gap: 4px;
@@ -990,8 +1023,11 @@ onUnmounted(() => {
 }
 
 .chart {
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
   flex: 1;
-  min-height: 130px;
+  min-height: 150px;
 }
 
 .sales-box {
@@ -1076,33 +1112,33 @@ onUnmounted(() => {
 }
 
 .left .panel-market {
-  flex: 0 0 196px;
+  flex: 0 0 178px;
 }
 
 .left .panel-sentiment {
-  flex: 0 0 252px;
+  flex: 0 0 232px;
 }
 
 .left .panel-honor {
   flex: 1;
-  min-height: 150px;
+  min-height: 130px;
 }
 
 .right .panel-focus {
-  flex: 0 0 126px;
+  flex: 0 0 118px;
 }
 
 .right .panel-products {
-  flex: 0 0 168px;
+  flex: 0 0 158px;
 }
 
 .right .panel-mini {
-  flex: 0 0 120px;
+  flex: 0 0 116px;
 }
 
 .right .panel-liquidity {
   flex: 1;
-  min-height: 166px;
+  height: 128px;
 }
 
 .fade-in-up {
