@@ -1,6 +1,7 @@
 const screen = () => import('@/views/screen/index.vue')
 const cockpit = () => import('@/views/cockpit/index.vue')
 const topic = () => import('@/views/screen/topic.vue')
+const high = () => import('@/views/screen/high.vue')
 const screenPlaceholder = () => import('@/views/screen/placeholder.vue')
 
 export default [
@@ -28,8 +29,7 @@ export default [
   {
     path: '/screen/high',
     name: 'screen-high',
-    component: screenPlaceholder,
-    props: { title: '看看高标' },
+    component: high,
   },
   {
     path: '/screen/first',
